@@ -1,6 +1,8 @@
 <?php
     require_once "core/config.php";
+    require_once "core/Core.php";
     require_once "helpers/function.php";
+    require_once "helpers/database.php";
     
     $file = $config["default_index"];
     if (!isset($_GET["file"]) && $_GET["file"] != "") $file = $_GET["file"];
