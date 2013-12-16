@@ -10,7 +10,7 @@
  *
  * @author bayu
  */
-class Service {
+class Service extends Core {
     //put your code here
 }
 

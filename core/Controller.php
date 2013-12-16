@@ -10,7 +10,7 @@
  *
  * @author bayu
  */
-class Controller {
+class Controller extends Core {
     //put your code here
     public function __construct() {
         

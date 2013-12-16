@@ -10,8 +10,15 @@
  *
  * @author harry
  */
-class IndexService {
-    //put your code here
+class IndexService extends Service {
+    public function __construct() {
+        parent::__construct();
+    }
+    
+    public function getList() {
+        $FunctionDao = $this->loadClass("FunctionInfoDao", "Dao");
+        return $FunctionDao->getList();
+    }
 }
 
 ?>

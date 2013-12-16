@@ -10,6 +10,8 @@ Class IndexController extends Controller {
     public function index() {
         $this->data['master'] = "shared/master";
         $this->data['view'] = 'index';
+        $IndexService = new IndexService;
+        $IndexService->getList();
         return $this->data;
     }
     
