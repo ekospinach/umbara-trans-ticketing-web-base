@@ -7,6 +7,7 @@
     $config["service_folder"] = "services";
     $config["model_folder"] = "models";
     $config["view_folder"] = "views";
+    defined('BASEPATH')  = "http://localhost/travel";
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.

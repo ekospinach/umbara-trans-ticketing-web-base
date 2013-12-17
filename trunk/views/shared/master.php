@@ -46,7 +46,7 @@
         <script type="text/javascript" src="<?php echo base_url(); ?>/res/scripts/flaty/flaty.js"></script>
         <script type="text/javascript">
             $(document).ready(function () { 
-                if ($('#main-content').height() < $(window).height()) $('#main-content').height($(window).height()); 
+                if ($('#main-content').height() < $(window).height()) $('#main-content').css("min-height",$(window).height()); 
             });
         </script>
         <style type="text/css">
@@ -193,8 +193,8 @@
                 <!-- BEGIN Page Title -->
                 <div class="page-title">
                     <div>
-                        <h1><strong>Selamat Datang</strong></h1>
-                        <h4>Pemesanan Tiket UMBARA TRANS</h4>
+                        <h1><strong><?php echo $_MODULE_ID; ?></strong></h1>
+                        <h4><?php echo $_MODULE_DESCRIPTION; ?></h4>
                     </div>
                 </div>
                 <!-- END Page Title -->
@@ -202,7 +202,7 @@
                 <!-- BEGIN Breadcrumb -->
                 <div id="breadcrumbs">
                     <ul class="breadcrumb">
-                        <li class="active"><i class="icon-home"></i> Home</li>
+                        <li class="active"><i class="icon-home"></i>Home</li>
                     </ul>
                 </div>
                 <!-- END Breadcrumb -->

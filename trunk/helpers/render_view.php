@@ -5,5 +5,6 @@
         $class_name = $file."Controller";
         $class = new $class_name;
         $data = $class->$method();
+        extract($data);
     }
 ?>
