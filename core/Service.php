@@ -11,7 +11,24 @@
  * @author bayu
  */
 class Service extends Core {
-    //put your code here
+    private $mError = array();
+    
+    public function __construct() {
+        parent::__construct();
+    }
+    
+    public function addError($ErrorMessage) {
+        $this->mError[] = $ErrorMessage;
+    }
+    
+    public function getErrors() {
+        return $this->mError;
+    }
+    
+    public function getServiceState() {
+        if (is_null($this->mError) && count($this->mError) <= 0) return false;
+        return true;
+    }
 }
 
 ?>

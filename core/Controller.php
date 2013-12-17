@@ -12,6 +12,8 @@
  */
 class Controller extends Core {
     //put your code here
+    protected $mErrors = array();
+    
     public function __construct() {
         
     }

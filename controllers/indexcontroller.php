@@ -2,16 +2,16 @@
 
 Class IndexController extends Controller {
     protected $data = array();
-    
+    protected $IndexService = null;
     public function __construct() {
         parent::__construct();
+        $this->loadDefaultClass();
     }
     
     public function index() {
         $this->data['master'] = "shared/master";
         $this->data['view'] = 'index';
-        $IndexService = new IndexService;
-        $IndexService->getList();
+        $this->IndexService->getList();
         return $this->data;
     }
     
@@ -46,6 +46,12 @@ Class IndexController extends Controller {
     
     private function generateFilter() {
         
+    }
+    
+    private function loadDefaultClass() {
+        $this->loadClass("IndexService", "service");
+        $this->IndexService = new IndexService();
+        $this->loadClass("IndexModel", "model");
     }
 }
 ?>

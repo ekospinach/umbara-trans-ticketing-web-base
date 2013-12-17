@@ -5,7 +5,7 @@
     require_once "helpers/database.php";
     
     $file = $config["default_index"];
-    if (!isset($_GET["file"]) && $_GET["file"] != "") $file = $_GET["file"];
+    if (isset($_GET["file"]) && $_GET["file"] != "") $file = $_GET["file"];
     $method = "index";
     if (isset($_GET["method"]) && $_GET["method"] != "") $method = $_GET["method"];
     
@@ -29,23 +29,6 @@
         $error .= "<p class='error'>Core dao is not found</p>";
     }
     
-    if (file_exists($config["model_folder"]."/".$file."model.php")) {
-        require_once $config["model_folder"]."/".$file."model.php";
-    } else {
-        $error .= "<p class='error'>Model for ".$file." is not found</p>";
-    }
-    
-    if (file_exists($config["dao_folder"]."/".$file."dao.php")) {
-        require_once $config["dao_folder"]."/".$file."dao.php";
-    } else {
-        $error .= "<p class='error'>Dao for ".$file." is not found</p>";
-    }
-    
-    if (file_exists($config["service_folder"]."/".$file."service.php")) {
-        require_once $config["service_folder"]."/".$file."service.php";
-    } else {
-        $error .= "<p class='error'>Service for ".$file." is not found</p>";
-    }
     
     if (file_exists($config["controller_folder"]."/".$file."controller.php")) {
         require_once $config["controller_folder"]."/".$file."controller.php";

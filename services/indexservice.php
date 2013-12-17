@@ -16,7 +16,8 @@ class IndexService extends Service {
     }
     
     public function getList() {
-        $FunctionDao = $this->loadClass("FunctionInfoDao", "Dao");
+        $this->loadClass("FunctionInfoDao", "Dao");
+        $FunctionDao = new FunctionInfoDao();
         return $FunctionDao->getList();
     }
 }
