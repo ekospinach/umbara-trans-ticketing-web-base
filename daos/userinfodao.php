@@ -6,15 +6,15 @@
  */
 
 /**
- * Description of functioninfodao
+ * Description of userinfodao
  *
  * @author bayu
  */
-class FunctionInfoDao extends Dao {
+class UserInfoDao extends Dao {
     
     public function __construct() {
         parent::__construct();
-        $this->mTableName = "function_info";
+        $this->mTableName = "user_info";
     }
     
     public function insert($data) {
@@ -22,17 +22,17 @@ class FunctionInfoDao extends Dao {
     }
     
     public function update($id, $data) {
-        $arr_id = array("id" => $id);
+        $arr_id = array("username" => $id);
         return parent::update($arr_id, $data);
     }
     
     public function delete($id) {
-        $arr_id = array("id" => $id);
+        $arr_id = array("username" => $id);
         return parent::delete($arr_id);
     }
     
     public function getObject($id) {
-        $arr_id = array("id" => $id);
+        $arr_id = array("username" => $id);
         return parent::getObject($arr_id);
     }
 
@@ -42,18 +42,14 @@ class FunctionInfoDao extends Dao {
     }
     
     protected function toObject($rowset) {
-        $this->loadClass("FunctionInfoModel","model");
-        $FunctionInfoModel = new FunctionInfoModel;
-        $FunctionInfoModel->setId($rowset->id);
-        $FunctionInfoModel->setName($rowset->name);
-        $FunctionInfoModel->setSequence($rowset->sequence);
-        $FunctionInfoModel->setUrl($rowset->url);
-        $FunctionInfoModel->setModule($rowset->module);
-        $FunctionInfoModel->setIsShow($rowset->is_show);
-        $FunctionInfoModel->setIsEnabled($rowset->is_enabled);
-        $FunctionInfoModel->setIconModule($rowset->icon_module);
+        $this->loadClass("UserInfoModel","model");
+        $UserInfoModel = new UserInfoModel();
         
-        return $FunctionInfoModel;
+        $UserInfoModel->setUserName($rowset->username);
+        $UserInfoModel->setPassword($rowset->password);
+        $UserInfoModel->setUserGroupCode($rowset->level);
+        
+        return $UserInfoModel;
     }
     
     
