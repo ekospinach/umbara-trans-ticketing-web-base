@@ -6,15 +6,15 @@
  */
 
 /**
- * Description of functioninfodao
+ * Description of usergroupdao
  *
  * @author bayu
  */
-class FunctionInfoDao extends Dao {
+class UserGroupDao extends Dao {
     
     public function __construct() {
         parent::__construct();
-        $this->mTableName = "function_info";
+        $this->mTableName = "user_group";
     }
     
     public function insert($data) {
@@ -42,18 +42,13 @@ class FunctionInfoDao extends Dao {
     }
     
     protected function toObject($rowset) {
-        $this->loadClass("FunctionInfoModel","model");
-        $FunctionInfoModel = new FunctionInfoModel;
-        $FunctionInfoModel->setId($rowset->id);
-        $FunctionInfoModel->setName($rowset->name);
-        $FunctionInfoModel->setSequence($rowset->sequence);
-        $FunctionInfoModel->setUrl($rowset->url);
-        $FunctionInfoModel->setModule($rowset->module);
-        $FunctionInfoModel->setIsShow($rowset->is_show);
-        $FunctionInfoModel->setIsEnabled($rowset->is_enabled);
-        $FunctionInfoModel->setIconModule($rowset->icon_module);
+        $this->loadClass("UserGroupModel","model");
+        $UserGroupModel = new UserGroupModel();
         
-        return $FunctionInfoModel;
+        $UserGroupModel->setId($rowset->id);
+        $UserGroupModel->setName($rowset->name);
+        
+        return $UserGroupModel;
     }
     
     

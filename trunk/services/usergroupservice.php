@@ -6,41 +6,40 @@
  */
 
 /**
- * Description of functioninfoservice
+ * Description of usergroupservice
  *
  * @author bayu
  */
-class FunctionInfoService extends Service{
+class UserGroupService extends Service{
     
-    protected $FunctionInfoDao;
+    protected $UserGroupService;
     public function __construct() {
         parent::__construct();
-        $this->loadClass("FunctionInfoDao", "dao");
-        $this->FunctionInfoDao = new FunctionInfoDao;
-        
+        $this->loadClass("UserGroupDao", "dao");
+        $this->UserGroupDao = new UserGroupDao;
     }
     
-    Public Function InsertFunctionInfo($data) {
+    Public Function InsertUserGroup($data) {
         try {
-            return $this->FunctionInfoDao->insert($data);
+            return $this->UserGroupDao->insert($data);
         } catch (Exception $exc) {
             $this->addError($exc->getMessage());
             throw new Exception($exc->getMessage());
         }
     }
     
-    public function updateFunctionInfo($id, $data) {
+    public function updateUserGroup($id, $data) {
         try {
-            return $this->FunctionInfoDao->update($id, $data);
+            return $this->UserGroupDao->update($id, $data);
         } catch (Exception $exc) {
             $this->addError($exc->getMessage());
             throw new Exception($exc->getMessage());
         }
     }
     
-    public function deleteFunctionInfo($id) {
+    public function deleteUserGroup($id) {
         try {
-            return $this->FunctionInfoDao->delete($id);
+            return $this->UserGroupDao->delete($id);
         } catch (Exception $exc) {
             $this->addError($exc->getMessage());
             throw new Exception($exc->getMessage());
@@ -48,9 +47,9 @@ class FunctionInfoService extends Service{
     }
 
 
-    public function getFunctionInfo($id) {
+    public function getUserGroup($id) {
         try {
-            return $this->FunctionInfoDao->getObject($id);
+            return $this->UserGroupDao->getObject($id);
         } catch (Exception $exc) {
             $this->addError($exc->getMessage());
             throw new Exception($exc->getMessage());
@@ -62,7 +61,7 @@ class FunctionInfoService extends Service{
         try {
             $criteria = null;
             if (!is_null($filter) && count($filter) > 0) $criteria = $this->createCriteria ($filter);
-            return $this->FunctionInfoDao->getList($criteria, $orderby, $limit, $offset);
+            return $this->UserGroupDao->getList($criteria, $orderby, $limit, $offset);
         } catch (Exception $exc) {
             
             throw new Exception($exc->getMessage());
