@@ -54,6 +54,7 @@ class Dao extends Core{
     
     protected function getListRecordSet($criteria=null, $orderby=null, $limit=null, $offset=null) {
         $query = "SELECT * FROM ".$this->mTableName;
+        if ($criteria != null) $query .= " WHERE ".$criteria->getSQL();
         $result = $this->getQueryResult($query);
         return $result;
     }

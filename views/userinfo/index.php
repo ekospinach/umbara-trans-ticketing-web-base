@@ -25,7 +25,7 @@
                         ?>
                         <tr>
                             <td><?php echo $item->getUserName(); ?></td>
-                            <td><?php echo $item->getUserGroupCode(); ?></td>
+                            <td><?php if (!is_null($item->getUserGroup())) echo $item->getUserGroup()->getName(); ?></td>
                             <td class='action-bar' align='center'>
                                 <a class='btn btn-small show-tooltip' title='Edit' href='<?php echo base_url()."/userinfo/edit?id=".$item->getUserName(); ?>'><i class='icon-edit'></i></a>
                                 <a class='btn btn-small btn-danger show-tooltip' title='Delete' href='<?php echo base_url()."/userinfo/delete?id=".$item->getUserName(); ?>'><i class='icon-trash'></i></a>

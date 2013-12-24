@@ -26,8 +26,8 @@ class Service extends Core {
     }
     
     public function getServiceState() {
-        if (is_null($this->mError) && count($this->mError) <= 0) return false;
-        return true;
+        if (is_null($this->mError) || count($this->mError) <= 0) return true;
+        return false;
     }
 }
 

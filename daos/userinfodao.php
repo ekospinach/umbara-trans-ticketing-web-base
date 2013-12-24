@@ -47,7 +47,14 @@ class UserInfoDao extends Dao {
         
         $UserInfoModel->setUserName($rowset->username);
         $UserInfoModel->setPassword($rowset->password);
-        $UserInfoModel->setUserGroupCode($rowset->level);
+        
+        $this->loadClass("UserGroupModel","model");
+        
+        $UserGroupModel = new UserGroupModel();
+        $UserGroupModel->setId($rowset->level);
+        $UserGroupModel->setIsLoaded(false);
+        
+        $UserInfoModel->setUserGroup($UserGroupModel);
         
         return $UserInfoModel;
     }

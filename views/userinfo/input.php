@@ -24,7 +24,7 @@
                     <div class="control-group">
                         <label class="control-label">User Name</label>
                         <div class="controls">
-                           <input type="text" placeholder="User Name" value="<?php if($Model != null) echo $Model->getUserName(); ?>" class="input-large" name="username" id="username" maxlength="25" />
+                           <input type="text" placeholder="User Name" <?php echo ($method == 'edit') ? "readonly" : "" ; ?> value="<?php if($Model != null) echo $Model->getUserName(); ?>" class="input-large" name="username" id="username" maxlength="25" />
                         </div>
                     </div>
                     <div class="control-group">
@@ -36,7 +36,23 @@
                     <div class="control-group">
                        <label class="control-label">Level</label>
                        <div class="controls">
-                          <input type="text" placeholder="Level"  value="<?php if($Model != null) echo $Model->getUserGroupCode(); ?>" class="input-large" name="level" id="level" maxlength="25"/>
+                          <select name="level" id="level">
+                              <?php
+                                if (!is_null($UserGroupList) && count($UserGroupList) > 0) {
+                                    $selected = "";
+                                    foreach ($UserGroupList as $key => $value) {
+                                        if(!is_null($Model))
+                                            if (!is_null($Model->getUserGroup()))
+                                                if($Model->getUserGroup()->getId() == $key)
+                                                    $selected = "selected";
+                              ?>
+                              <option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $value; ?></option>
+                              <?php
+                                         $selected = "";
+                                    }
+                                }
+                              ?>
+                          </select>
                        </div>
                     </div>
                     <div class="form-actions">
