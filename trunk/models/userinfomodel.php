@@ -10,10 +10,10 @@
  *
  * @author bayu
  */
-class UserInfoModel {
+class UserInfoModel extends Core {
     private $mUserName;
     private $mPassword;
-    private $mUserGroupCode;
+    private $mUserGroup;
     private $mIsLoaded;
     
     public function setUserName($value) {
@@ -32,12 +32,18 @@ class UserInfoModel {
         return $this->mPassword;
     }
     
-    public function setUserGroupCode($value) {
-        $this->mUserGroupCode = $value;
+    public function setUserGroup($value) {
+        $this->mUserGroup = $value;
     }
     
-    public function getUserGroupCode() {
-        return $this->mUserGroupCode;
+    public function getUserGroup() {
+        if (!is_null($this->mUserGroup) && !$this->mUserGroup->IsLoaded()) {
+            $this->loadClass('UserGroupDao','dao');
+            $UserGroupDao = new UserGroupDao();
+            $this->mUserGroup = $UserGroupDao->getObject($this->mUserGroup->getId());
+            if (!is_null($this->mUserGroup)) $this->mUserGroup->setIsLoaded(true);
+        }
+        return $this->mUserGroup;
     }
     
     public function setIsLoaded($value) {
@@ -52,7 +58,7 @@ class UserInfoModel {
         $data = array(
             'username' => $this->mUserName,
             'password' => $this->mPassword,
-            'level' => $this->mUserGroupCode
+            'level' => (!is_null($this->mUserGroup) ? $this->mUserGroup->getId() : null)
         );
         
         return $data;

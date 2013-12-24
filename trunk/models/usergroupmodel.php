@@ -35,7 +35,7 @@ class UserGroupModel {
         $this->mIsLoaded = $value;
     }
     
-    public function getIsLoaded() {
+    public function IsLoaded() {
         return $this->mIsLoaded;
     }
     

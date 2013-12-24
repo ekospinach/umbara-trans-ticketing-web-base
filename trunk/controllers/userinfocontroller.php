@@ -62,6 +62,7 @@ class UserInfoController extends Controller{
             $data = $this->UserInfoService->getUserInfo($id);
         }
         
+        $this->data['method'] = 'edit';
         $this->data['url'] = "edit?id=".$id;
         $this->createInputView($data);
         return $this->data;
@@ -76,7 +77,23 @@ class UserInfoController extends Controller{
         return $this->data;
     }
     
+    private function loadComboUserGroup() {
+        $this->loadClass("UserGroupService","service");
+        $UserGroupService = new UserGroupService();
+        $UserGroupList = $UserGroupService->getList();
+        $arr_combo = array();
+        if (!is_null($UserGroupList) && count($UserGroupList) > 0) {
+            foreach ($UserGroupList as $item) {
+                $arr_combo[$item->getId()] = $item->getName();
+            }
+        }
+        
+        $this->data['UserGroupList'] = $arr_combo;
+    }
+    
     private function createInputView($data) {
+        $this->loadComboUserGroup();
+        
         $this->data["Model"] = $data;
         $this->data['master'] = "shared/master";
         $this->data['view'] = "input";
@@ -85,7 +102,7 @@ class UserInfoController extends Controller{
     private function validate($data) {
         if (is_null($data->getUserName()) || $data->getUserName() == "") $this->mErrors[] = "User Name is required";
         if (is_null($data->getPassword()) || $data->getPassword() == "") $this->mErrors[] = "Password is required";
-        if (is_null($data->getUserGroupCode()) || $data->getUserGroupCode() == "") $this->mErrors[] = "Level is required";
+        if (is_null($data->getUserGroup()) || $data->getUserGroup() == "") $this->mErrors[] = "Level is required";
         if (count($this->mErrors) > 0) return false;
         else return true;
     }
@@ -94,7 +111,10 @@ class UserInfoController extends Controller{
         $UserInfoModel = new UserInfoModel;
         $UserInfoModel->setUserName($this->getParam("username"));
         $UserInfoModel->setPassword($this->getParam("password"));
-        $UserInfoModel->setUserGroupCode($this->getParam("level"));
+        $this->loadClass("UserGroupModel","model");
+        $UserGroupModel = new UserGroupModel();
+        $UserGroupModel->setId($this->getParam("level"));
+        $UserInfoModel->setUserGroup($UserGroupModel);
         
         return $UserInfoModel;
     }

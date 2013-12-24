@@ -21,6 +21,7 @@ class UserInfoService extends Service{
     
     Public Function InsertUserInfo($data) {
         try {
+            if (!$this->validateOnInsert($data)) return false;
             return $this->UserInfoDao->insert($data);
         } catch (Exception $exc) {
             $this->addError($exc->getMessage());
@@ -30,6 +31,7 @@ class UserInfoService extends Service{
     
     public function updateUserInfo($id, $data) {
         try {
+            if (!$this->validateOnUpdate($data)) return false;
             return $this->UserInfoDao->update($id, $data);
         } catch (Exception $exc) {
             $this->addError($exc->getMessage());
@@ -63,7 +65,6 @@ class UserInfoService extends Service{
             if (!is_null($filter) && count($filter) > 0) $criteria = $this->createCriteria ($filter);
             return $this->UserInfoDao->getList($criteria, $orderby, $limit, $offset);
         } catch (Exception $exc) {
-            
             throw new Exception($exc->getMessage());
         }
     }
@@ -71,16 +72,33 @@ class UserInfoService extends Service{
     private function createCriteria($filter) {
         $this->loadClass("specification",null,"libraries");
         $specification = new Specification();
+        $criteria = null;
+        if (!is_null($filter["username"]) && $filter["username"] != "")  {
+            $criteria = $specification->equalSpecification("username", $filter["username"]);
+        }
+        
+        return $criteria;
     }
 
 
     private function validate($model) {
+        if (!ctype_alnum($model->getUserName())) {
+            $this->addError("User Name hanya boleh terdiri dari huruf dan angka");
+        }
         
         return $this->getServiceState();
     }
     
     private function validateOnInsert($model) {
+        $filter["username"] = $model->getUserName();
+        $UserInfoModel = $this->getList($filter);
+        
+        if (!is_null($UserInfoModel) && count($UserInfoModel) > 0) {
+            $this->addError("User Name Sudah Pernah Dimasukkan Silahkan memasukkan User Name yang lain");
+        }
+        
         $this->validate($model);
+        
         return $this->getServiceState();
     }
     
